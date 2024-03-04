@@ -1,0 +1,29 @@
+version: "3.9"
+
+networks:
+  my-network:
+
+services:
+  receiver:
+    build: ./receiver
+    container_name: receiver
+    hostname: receiver
+    networks:
+      - my-network
+    ports:
+      - "3002:3001"
+    environment:
+      - PORT=3002
+  sender:
+    build: ./sender
+    container_name: sender
+    hostname: sender
+    networks:
+      - my-network
+    links:
+      - "receiver"
+    environment:
+      - PORT=3001
+      - RECEIVER=http://receiver:3002
+    ports:
+      - "3001:3001"
