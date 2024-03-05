@@ -1,7 +1,7 @@
 version: "3.9"
 
 networks:
-  my-network:
+  app-network:
 
 services:
   receiver:
@@ -9,9 +9,9 @@ services:
     container_name: receiver
     hostname: receiver
     networks:
-      - my-network
+      - app-network
     ports:
-      - "3002:3002"
+      - 3002:3002
     environment:
       - PORT=3002
   sender:
@@ -19,11 +19,9 @@ services:
     container_name: sender
     hostname: sender
     networks:
-      - my-network
-    links:
-      - "receiver"
+      - app-network
+    ports:
+      - 3001:3001
     environment:
       - PORT=3001
       - RECEIVER=http://receiver:3002
-    ports:
-      - "3001:3001"

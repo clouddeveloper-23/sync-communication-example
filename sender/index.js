@@ -18,8 +18,6 @@ async function sendPostRequest() {
   console.log(data);
 }
 
-console.log(process.env.RECEIVER);
-
 setInterval(async () => {
   try {
     await sendGetRequest();
