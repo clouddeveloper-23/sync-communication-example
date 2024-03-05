@@ -11,7 +11,7 @@ services:
     networks:
       - my-network
     ports:
-      - "3002:3001"
+      - "3002:3002"
     environment:
       - PORT=3002
   sender:
