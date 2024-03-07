@@ -1,27 +1,27 @@
 version: "3.9"
 
 networks:
-  app-network:
+  sync-network:
 
 services:
-  receiver:
-    build: ./receiver
-    container_name: receiver
-    hostname: receiver
-    networks:
-      - app-network
-    ports:
-      - 3002:3002
-    environment:
-      - PORT=3002
   sender:
-    build: ./sender
+    image: zocomjohankivi/sender:latest
     container_name: sender
     hostname: sender
     networks:
-      - app-network
+      - sync-network
     ports:
       - 3001:3001
     environment:
       - PORT=3001
       - RECEIVER=http://receiver:3002
+  receiver:
+    build: ./receiver
+    container_name: receiver
+    hostname: receiver
+    networks:
+      - sync-network
+    ports:
+      - 3002:3002
+    environment:
+      - PORT=3002

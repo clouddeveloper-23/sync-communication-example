@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(express.json());
+
 app.get("/", async (req, res) => {
   const resp = await fetch(process.env.RECEIVER);
   const data = await resp.json();
@@ -9,10 +11,12 @@ app.get("/", async (req, res) => {
 });
 
 app.post("/", async (req, res) => {
+  const { message } = req.body;
+
   const resp = await fetch(process.env.RECEIVER, {
     method: "post",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ message: "A post message was sent." }),
+    body: JSON.stringify({ message: message }),
   });
   const data = await resp.json();
   res.send(data);
