@@ -5,7 +5,7 @@ networks:
 
 services:
   sender:
-    image: zocomjohankivi/sender:latest
+    build: ./sender
     container_name: sender
     hostname: sender
     networks:
